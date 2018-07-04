@@ -49,7 +49,7 @@ docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ### Create a jenkins pipeline
 
  * Install jenkins Pipeline plugin from Manage Plugins
- 
+ * Install jenkins Pipeline plugin from Manage Plugins 
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
