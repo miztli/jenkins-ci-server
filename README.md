@@ -15,7 +15,7 @@ Docker v18.04.0-ce
 
  * Build and tag Dockerfile to create the Docker image
 ```
-docker build -t jenkins-server:0.1
+docker build -t jenkins-server:0.1 .
 ```
 
  * Create 2 docker data volumes: One for jenkins' logs and the other for jenkins' data
@@ -49,7 +49,6 @@ docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ### Create a jenkins pipeline
 
  * Install jenkins Pipeline plugin from Manage Plugins
- * Install jenkins Pipeline plugin from Manage Plugins 
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
