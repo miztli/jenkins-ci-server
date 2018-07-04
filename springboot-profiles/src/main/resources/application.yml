@@ -1,0 +1,60 @@
+## global properties for application
+## standalone profile is set by default, override with flag: --spring.profiles.active
+spring:
+  application:
+    name: properties-samples
+  profiles:
+    active: standalone
+
+---
+
+## used if no profile is set at application startup
+spring:
+  profiles: standalone
+security:
+  user:
+    password: no password
+server:
+  address: localhost
+  port: 8080
+db:
+  address: localhost
+  port: 2345
+  name: sample-db
+  password: standalone-password
+
+---
+
+## used if profile dev is set at application startup
+## --spring.profiles.active=dev
+spring:
+  profiles: dev
+security:
+  user:
+    password: weak password
+server:
+  address: localhost
+  port: 8003
+db:
+  address: localhost
+  port: 5432
+  name: sample-db
+  password: dev-password
+
+---
+
+## used if profile prod is set at application startup
+## --spring.profiles.active=prod
+spring:
+  profiles: prod
+security:
+  user:
+    password: strong password
+server:
+  address: localhost
+  port: 8004
+db:
+  address: localhost
+  port: 2312
+  name: sample-db
+  password: prod-password
