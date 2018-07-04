@@ -46,6 +46,11 @@ docker exec jenkins-master ls /var/cache/jenkins/war
 docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ```
 
- * References
+### Create a jenkins pipeline
+
+ * Install jenkins Pipeline plugin from Manage Plugins
+ 
+
+### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists
