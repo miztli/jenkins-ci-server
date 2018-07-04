@@ -46,6 +46,6 @@ docker exec jenkins-master ls /var/cache/jenkins/war
 docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ```
 
-* References
- - https://engineering.riotgames.com/news/putting-jenkins-docker-container
- - https://engineering.riotgames.com/news/docker-jenkins-data-persists
+ * References
+   - https://engineering.riotgames.com/news/putting-jenkins-docker-container
+   - https://engineering.riotgames.com/news/docker-jenkins-data-persists
