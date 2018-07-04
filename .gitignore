@@ -1,2 +1,5 @@
 #README tmp
 .README.md.swp
+
+#Compiled sources
+springboot-profiles/build/
