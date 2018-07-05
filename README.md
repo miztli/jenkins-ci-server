@@ -45,6 +45,11 @@ docker ps
 docker exec jenkins-master ls /var/cache/jenkins/war
 docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ```
+ 
+ * If you lost the initial password, execute:
+```
+docker exec jenkins-master cat /var/jenkins_home/secrets/initialAdminPassword
+``` 
 
 ### Create a jenkins pipeline
 
