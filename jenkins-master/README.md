@@ -15,7 +15,7 @@ Docker v18.04.0-ce
 
  * Build and tag Dockerfile to create the Docker image
 ```
-docker build -t jenkins-server:0.1 .
+docker build -t jenkins-master:0.1 .
 ```
 
  * Create 2 docker data volumes: One for jenkins' logs and the other for jenkins' data
@@ -32,7 +32,7 @@ docker volume ls
 
  * Start the container
 ```
-docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-server:0.1
+docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --network=jenkins-net --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-server:0.1
 ```
 
  * Verify that container is up and running
