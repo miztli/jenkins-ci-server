@@ -2,6 +2,7 @@
 Create a Jenkins server with docker
 
 ## Getting Started
+For starting the complete environment, run the docker-compose.yml file outside this directory.
 These instructions will help you to set up a Jenkins master server on top of docker to build you CI-CD pipelines.
 
 ### Prerequisites

@@ -2,6 +2,7 @@
 Create an NGINX proxy server to front our jenkins master server.
 
 ## Getting Started
+|For starting the complete environment, run the docker-compose.yml file outside this directory.
 These instructions will help you to set up an NGINX proxy server.
 
 ### Prerequisites
