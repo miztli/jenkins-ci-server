@@ -9,9 +9,10 @@ The following software must be installed in your server or local computer
 
 ```
 Docker v18.04.0-ce
+Docker compose 1.19.0
 ```
 
-### Install
+### Install (Standalone mode)
 
  * Create a bridge network so that containers can see each other.
 ```
@@ -25,7 +26,19 @@ docker network ls
  
  * Follow each README.md file inside the directories in the following order:
    - jenkins-master
-   - NGINX-server
+   - nginx-server
+
+## Install complete environment with docker compose
+
+ * Build images
+```
+docker-compose build
+```
+
+ * Start containers
+```
+docker-compose -p jenkins up -d
+```
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
