@@ -24,6 +24,4 @@ docker run -p 80:80 --name=jenkins-nginx --network jenkins-net -d jenkins-nginx:
 ``` 
 
 ### References
-   - https://engineering.riotgames.com/news/putting-jenkins-docker-container
-   - https://engineering.riotgames.com/news/docker-jenkins-data-persists
-   - https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose
+  - https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose
