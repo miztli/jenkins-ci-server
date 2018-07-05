@@ -30,10 +30,15 @@ docker volume create jenkins-data
 docker volume ls
 ```
 
- * Start the container
+ * Start the container (standalone)
 ```
 docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --network=jenkins-net --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-master:0.1
 ```
+
+* Start the container (fronted by an NGINX server, no longer need to expose port 8080)
+```                                                                                                             
+docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --network=jenkins-net --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-master:0.1                
+```  
 
  * Verify that container is up and running
 ```
