@@ -2,6 +2,7 @@ version: '3'
 services:
   master:
     build: ./jenkins-master
+    image: jenkins-master:0.1
     ports:
       - "50000:50000"
     volumes:
@@ -11,12 +12,13 @@ services:
       - jenkins-net
   nginx:
     build: ./jenkins-nginx
+    image: jenkins-nginx:0.1
     ports:
       - "80:80"
     networks:
       - jenkins-net
 volumes:
-jenkins-log:
-jenkins-data:
+  jenkins-data:
+  jenkins-log:
 networks:
-jenkins-net:
+  jenkins-net:
