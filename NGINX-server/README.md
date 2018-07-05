@@ -17,6 +17,11 @@ Docker v18.04.0-ce
 ```
 docker build -t jenkins-nginx:0.1 . 
 ```
+ 
+ * Start the container
+```
+docker run -p 80:80 --name=jenkins-nginx --network jenkins-net -d jenkins-nginx:0.1
+``` 
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
