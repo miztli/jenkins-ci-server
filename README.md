@@ -14,7 +14,7 @@ Docker v18.04.0-ce
 ### Install
 
  * Follow each README.md file inside the directories in the following order:
-   - jenkins-server
+   - jenkins-master
    - NGINX-server
 
 ### References
