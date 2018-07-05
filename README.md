@@ -13,6 +13,16 @@ Docker v18.04.0-ce
 
 ### Install
 
+ * Create a bridge network so that containers can see each other.
+```
+docker network create --driver bridge jenkins-net
+```
+
+ * Verify network waas created successfully
+```
+docker network ls
+``` 
+ 
  * Follow each README.md file inside the directories in the following order:
    - jenkins-master
    - NGINX-server
