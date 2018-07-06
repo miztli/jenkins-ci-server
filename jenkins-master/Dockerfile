@@ -1,6 +1,7 @@
 FROM centos:centos7
 LABEL maintainer="dark_coneja@hotmail.com"
 
+#Add java-level for jar support
 RUN yum makecache \
     && yum update -y \
     && yum install -y \
@@ -9,6 +10,7 @@ RUN yum makecache \
     openssh-client \
     unzip \
     java-1.8.0-openjdk \
+    java-devel \
     && yum clean all
 
 ARG user=jenkins
@@ -31,7 +33,10 @@ ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
-ENV JAVA_OPTS="-Xmx8192m -Djenkins.install.runSetupWizard=false"
+#for production-ready server
+ENV JAVA_OPTS="-Xmx8192m -Djenkins.install.runSetupWizard=true"
+#for experimental server
+#ENV JAVA_OPTS="-Xmx8192m -Djenkins.install.runSetupWizard=false"
 ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 

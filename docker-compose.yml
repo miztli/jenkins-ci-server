@@ -22,7 +22,7 @@ services:
     image: jenkins-slave:0.1
   proxy:
     build: ./docker-proxy
-    image: jenkins-proxy:0.1
+    image: docker-proxy:0.1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
