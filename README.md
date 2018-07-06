@@ -40,6 +40,22 @@ docker-compose build
 docker-compose -p jenkins up -d
 ```
 
+ * Verify deployed containers
+```
+docker-compose -p jenkins ps
+```
+
+ * Feel free to verify what docker compose has created
+```
+docker network ls
+docker volume ls
+```
+
+ * Stop the jenkis environment
+```
+docker-compose -p jenkins down
+```
+
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists
