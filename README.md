@@ -22,8 +22,8 @@ docker network create --driver bridge jenkins-net
  * Verify network waas created successfully
 ```
 docker network ls
-``` 
- 
+```
+
  * Follow each README.md file inside the directories in the following order:
    - jenkins-master
    - nginx-server
@@ -54,6 +54,32 @@ docker volume ls
  * Stop the jenkis environment
 ```
 docker-compose -p jenkins down
+```
+
+## Manage environment with makefile
+ * Build the environment
+```
+make build
+```
+ * Start the environment (exclude jenkins slave)
+```
+make run
+```
+ * Stop the environment
+```
+make stop
+```
+ * Clean environment (Use carefully, this command will delete container volumes too)
+```
+make clean-data
+```
+ * Clean images
+```
+make clean-images
+```
+ * Tail jenkins logs
+```
+make jenkins-log
 ```
 
 ### References
