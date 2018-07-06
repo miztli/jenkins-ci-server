@@ -86,3 +86,4 @@ make jenkins-log
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists
    - https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose
+   - https://engineering.riotgames.com/news/jenkins-ephemeral-docker-tutorial
