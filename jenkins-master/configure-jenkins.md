@@ -23,7 +23,7 @@ A new form pops. This form is the high level information you need to enter about
 
 Note WINDOWS USERS ONLY: You aren’t using a proxy container, so just set this to: tcp://docker.for.win.localhost:2375 which happens to be a prenamed DNS entry for your convenience.
 
-*Click on Test Connection and you should get a response that shows Version and API version of your docker host.*
+***Click on Test Connection and you should get a response that shows Version and API version of your docker host.***
 
 If no response comes back or you get error text, something has gone wrong and Jenkins cannot talk to your Dockerhost. I’ve done my best to make sure this walkthrough “just works” but here’s a quick list of things that could be broken and affect this:
 
