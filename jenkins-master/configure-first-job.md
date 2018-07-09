@@ -1,4 +1,4 @@
-# Start your jenkins first job
+# Configure your first jenkins job
 
 From a Jenkins perspective, nothing changes about making jobs. We want to make sure that the job we create is restricted to the label we set on the Docker image node we configured: testslave.
 
@@ -36,7 +36,7 @@ For deeper analysis you can always go to the jenkins logs and see what the plugi
 
 However, everything should work - if it does, fire up that victory dance.
 
-###References
+### References
 
  - https://engineering.riotgames.com/news/jenkins-ephemeral-docker-tutorial
 
