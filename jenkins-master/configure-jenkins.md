@@ -60,3 +60,7 @@ Assuming you got a successful version response when testing the connection, we c
 Click Save at the bottom of the configuration page
 
 We have one last thing to do now, and that’s make a build job to test this setup and confirm everything works.
+
+### References
+
+ - https://engineering.riotgames.com/news/jenkins-ephemeral-docker-tutorial
