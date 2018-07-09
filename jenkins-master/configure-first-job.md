@@ -22,17 +22,17 @@ The testjob will enter the build queue and you might see “waiting on available
 
 If something has gone wrong, the job will hang in the build queue, waiting on a node to provision. Debugging this and other pro-tips could really be another entire blog post, but here are a few pointers:
 
-Make sure there are no typos in the label chosen, either in the Jenkins master configuration or on the job configuration itself. Jenkins should confirm that it found testslave in one Cloud provisioner.
+ - Make sure there are no typos in the label chosen, either in the Jenkins master configuration or on the job configuration itself. Jenkins should confirm that it found testslave in one Cloud provisioner.
 
-Double, triple, quadruple check that when configuring the Docker host a positive response comes back from Test Connection.
+ - Double, triple, quadruple check that when configuring the Docker host a positive response comes back from Test Connection.
 
-Make sure the image name entered in the jenkins configuration matches the name of the image you see when you run Docker images in your command line for your build slave (it should be jenkins_slave).
+ - Make sure the image name entered in the jenkins configuration matches the name of the image you see when you run Docker images in your command line for your build slave (it should be jenkins_slave).
 
-Make sure you set the network mode in the Create Container Settings section. It should be jenkins_jenkins-net.
+ - Make sure you set the network mode in the Create Container Settings section. It should be jenkins_jenkins-net.
 
-Make sure you chose Different Jenkins URL under Launch Mode and that it is set to: http://jenkins_master_1:8080/ (the forward slashes do matter!).
+ - Make sure you chose Different Jenkins URL under Launch Mode and that it is set to: http://jenkins_master_1:8080/ (the forward slashes do matter!).
 
-For deeper analysis you can always go to the jenkins logs and see what the plugin is complaining about. Jenkins Landing Page -> Manage Jenkins -> System Log -> All Jenkins Logs. A lot can be derived from the errors it generates. You can also check logs on the system at the command line as well, I left a handy make jenkins-log shortcut to tail the jenkins logs. Or look for the jenkins_slave containers being spun up in docker ps and run a docker logs command on them to see why they can’t start.
+ - For deeper analysis you can always go to the jenkins logs and see what the plugin is complaining about. Jenkins Landing Page -> Manage Jenkins -> System Log -> All Jenkins Logs. A lot can be derived from the errors it generates. You can also check logs on the system at the command line as well, I left a handy make jenkins-log shortcut to tail the jenkins logs. Or look for the jenkins_slave containers being spun up in docker ps and run a docker logs command on them to see why they can’t start.
 
 However, everything should work - if it does, fire up that victory dance.
 
