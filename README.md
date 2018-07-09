@@ -82,6 +82,9 @@ make clean-images
 make jenkins-log
 ```
 
+## Configure Jenkins
+Click [here](jenkins-master/configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
+
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists
