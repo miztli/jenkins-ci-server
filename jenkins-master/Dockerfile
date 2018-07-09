@@ -11,6 +11,7 @@ RUN yum makecache \
     unzip \
     java-1.8.0-openjdk \
     java-devel \
+    git \
     && yum clean all
 
 ARG user=jenkins
