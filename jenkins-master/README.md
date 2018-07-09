@@ -37,9 +37,9 @@ docker run -p 8080:8080 -p 50000:50000 --name=jenkins-master --network=jenkins-n
 ```
 
 * Start the container (fronted by an NGINX server, no longer need to expose port 8080)
-```                                                                                                             
-docker run -p 50000:50000 --name=jenkins-master --network=jenkins-net --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-master:0.1                
-```  
+```
+docker run -p 50000:50000 --name=jenkins-master --network=jenkins-net --mount source=jenkins-log,target=/var/log/jenkins --mount source=jenkins-data,target=/var/jenkins_home -d jenkins-master:0.1
+```
 
  * Verify that container is up and running
 ```
@@ -51,11 +51,14 @@ docker ps
 docker exec jenkins-master ls /var/cache/jenkins/war
 docker exec jenkins-master tail -f /var/log/jenkins/jenkins.log
 ```
- 
+
  * If you lost the initial password, execute:
 ```
 docker exec jenkins-master cat /var/jenkins_home/secrets/initialAdminPassword
-``` 
+```
+
+### Configure Jenkins
+Click [here](configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
 
 ### Create a jenkins pipeline
 
