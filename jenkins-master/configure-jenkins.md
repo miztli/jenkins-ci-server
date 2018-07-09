@@ -45,7 +45,7 @@ Assuming you got a successful version response when testing the connection, we c
 
  - Make sure the Enabled checkbox is selected (you can use this to disable specific images if they are causing problems)
 
- - For the Docker Image field enter: jenkins_slave
+ - For the Docker Image field enter: jenkins-slave:0.1
 
  - For Remote Filing System Root enter /home/jenkins (this will be where the jenkins workspace goes in the container)
 
@@ -60,6 +60,10 @@ Assuming you got a successful version response when testing the connection, we c
 Click Save at the bottom of the configuration page
 
 We have one last thing to do now, and that’s make a build job to test this setup and confirm everything works.
+
+### Start your firt job
+Click [here](configure-first-job.md) to follow the configuration steps for your first job
+
 
 ### References
 
