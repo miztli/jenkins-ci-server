@@ -6,6 +6,7 @@ services:
     ports:
       - "50000:50000"
     volumes:
+      - "~/.ssh/:/var/jenkins_home/.ssh/"     
       - jenkins-log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
     networks:
