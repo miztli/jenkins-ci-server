@@ -38,6 +38,7 @@ ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 #for production-ready server
 ENV JAVA_OPTS="-Xmx8192m -Djenkins.install.runSetupWizard=true"
+ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk"
 #for experimental server
 #ENV JAVA_OPTS="-Xmx8192m -Djenkins.install.runSetupWizard=false"
 ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
