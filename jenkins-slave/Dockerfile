@@ -18,6 +18,7 @@ ARG uid=1000
 ARG gid=1000
 
 ENV JENKINS_HOME /home/${user}
+ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk"
 
 # Jenkins is run with user `jenkins`, uid = 1000
 RUN groupadd -g ${gid} ${group} \
