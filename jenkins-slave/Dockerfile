@@ -11,7 +11,7 @@ RUN yum makecache \
     && yum install -y \
     wget \
     git \
-    java-1.8.0-openjdk \
+    java-1.8.0-openjdk-devel \
 	  sudo \
 	  && yum clean all
 
