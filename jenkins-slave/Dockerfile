@@ -5,6 +5,20 @@ LABEL maintainer="dark_coneja@hotmail.com"
 ##RUN yum update -y && \
 ##    yum clean all
 
+# Install docker
+RUN yum install -y \
+    yum-utils \
+    device-mapper-persistent-data \
+    lvm2
+
+# Setup docker stable repository
+RUN yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+# Enable edge repository
+RUN yum-config-manager --enable docker-ce-edge
+
 # Install Packages
 RUN yum makecache \
     && yum update -y \
@@ -12,6 +26,7 @@ RUN yum makecache \
     wget \
     git \
     java-1.8.0-openjdk-devel \
+    docker-ce-18.04.0.ce-3.el7.centos \
 	  sudo \
 	  && yum clean all
 
@@ -29,8 +44,17 @@ RUN groupadd -g ${gid} ${group} \
 
 RUN chown -R ${user}:${user} /home/${user}
 
+# Add jenkins to docker group
+RUN usermod -aG docker ${user}
+# Add jenkis to input group WTF??? <---- CHECK
+#RUN usermod -aG input ${user}
+
 # Add the jenkins user to sudoers
 RUN echo "${user}    ALL=(ALL)    ALL" >> etc/sudoers
+
+# Jenkins home directory is a volume, so configuration and build history
+# can be persisted and survive image upgrades
+VOLUME /home/jenkins
 
 # Set Name Servers
 COPY /files/resolv.conf /etc/resolv.conf
