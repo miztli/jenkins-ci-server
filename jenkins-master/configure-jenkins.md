@@ -61,7 +61,7 @@ Click Save at the bottom of the configuration page
 
 We have one last thing to do now, and that’s make a build job to test this setup and confirm everything works.
 
-### Start your firt job
+### Start your first job
 Click [here](configure-first-job.md) to follow the configuration steps for your first job
 
 
