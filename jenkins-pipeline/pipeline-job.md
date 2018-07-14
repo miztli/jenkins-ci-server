@@ -49,3 +49,6 @@ Follow the next instructions to add your AWS credentials.
 accesskey: AKIAJTWRFSGCEQ4UNVKA
 secret: 4tt3pv95+wv3msCjg0iNKcnoN67wTfg85/PQgbTl
 
+/home/miztli/.ssh:/home/jenkins/.ssh:ro
+/var/run/docker.sock:/var/run/docker.sock:rw
+jenkins_jenkins-slave-home:/home/jenkins:rw
