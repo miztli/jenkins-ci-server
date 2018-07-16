@@ -1,5 +1,5 @@
 # CI SERVER with Jenkins + NGINX + Docker
-Create a continuous integration server with Jenkins, NGINX and Docker
+Create a continuous integration server farm with Jenkins, NGINX and Docker
 
 ## Getting Started
 These instructions will help you to set up a continuous integration server using Jenkins on top of Docker fronted by an NGINX web proxy to build you CI-CD pipelines.
