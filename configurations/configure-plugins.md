@@ -23,7 +23,7 @@ Be sure you have installed all previous plugins from the list.
  2. Type a Name for the Gradle installation.
  3. Select install automatically, or type the Path to your Gradle executable.
 
-##### Docker Plugin (For docker build slaves)
+##### Docker Plugin
  1. Go to ***Manage Jenkins > Global Tool Configuration > Docker > Docker Installations > Add Docker***
  2. Type a Name for the Docker installation.
  3. Select install automatically, or type the Path to your Docker executable.
