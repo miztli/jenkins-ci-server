@@ -47,7 +47,7 @@ RUN chown -R ${user}:${user} /home/${user}
 # Add jenkins to docker group
 RUN usermod -aG docker ${user}
 # Add jenkis to input group WTF??? <---- CHECK
-#RUN usermod -aG input ${user}
+RUN usermod -aG input ${user}
 
 # Add the jenkins user to sudoers
 RUN echo "${user}    ALL=(ALL)    ALL" >> etc/sudoers
