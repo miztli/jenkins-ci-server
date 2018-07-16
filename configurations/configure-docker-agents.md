@@ -14,7 +14,7 @@ After [Setting up Jenkins](configure-jenkins.md), follow the next steps to confi
  /var/run/docker.sock:/var/run/docker.sock:rw
  /home/ubuntu/.ssh:/home/jenkins/.ssh:rw
   ```
- ***_Note:_*** Look at the importance of mounting the ***/var/run/docker.sock*** volume. It is necessary to mount the socket that communicates with the docker deamon to the slave containers, due to the fact that inside the slaves, we'll have the need to build images or use some docker commands. Otherwise, we could have difficulties running docker-in-docker as [this](http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/) article exposes.
+ ***_Note:_*** Look at the importance of mounting the ***/var/run/docker.sock*** volume. It's necessary to mount the socket that communicates with the docker deamon to the slave containers, due to the fact that inside the slaves, we'll have the need to build images or use some docker commands. Otherwise, we could have difficulties running docker-in-docker as [this](http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/) article exposes.
 
  6. On _Remote Filing System Root_ type: ```/home/jenkins```.
  7. On _Usage_ select, 'Only build jobs with label expressions matching this node'.
