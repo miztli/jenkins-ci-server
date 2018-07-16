@@ -46,7 +46,7 @@ make jenkins-log
  * [Setup Jenkins](configurations/configure-jenkins.md)
  * [Setup Bitbucket Webhook](configurations/configure-bitbucket-webhook.md)
  * [Setup Docker Agents](configurations/configure-docker-agents.md)
- * [Setup Pipeline Job](configrations/pipeline-job.md)
+ * [Setup Pipeline Job](configrations/configure-pipeline-job.md)
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
