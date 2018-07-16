@@ -6,7 +6,7 @@ services:
     ports:
       - "50000:50000"
     volumes:
-      - "~/.ssh/:/var/jenkins_home/.ssh/"     
+      - "~/.ssh:/var/jenkins_home/.ssh"
       - jenkins-log:/var/log/jenkins
       - jenkins-data:/var/jenkins_home
     networks:
@@ -21,6 +21,8 @@ services:
   slave:
     build: ./jenkins-slave
     image: jenkins-slave:0.1
+    volumes: 
+      - jenkins-slave-home:/home/jenkins        
   proxy:
     build: ./docker-proxy
     image: docker-proxy:0.1
@@ -33,5 +35,6 @@ services:
 volumes:
   jenkins-data:
   jenkins-log:
+  jenkins-slave-home:
 networks:
   jenkins-net:
