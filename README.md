@@ -82,9 +82,12 @@ make clean-images
 make jenkins-log
 ```
 
-### Configure Jenkins
-Click [here](jenkins-master/configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
-
+### post installation steps
+ * [Setup Plugins](jenkins-master/configure-jenkins.md)
+ * [Setup Jenkins](jenkins-master/configure-jenkins.md)
+ * [Setup Bitbucket Webhook] ()
+ * [Setup Docker Agents] (jenkins-master/configure-jenkins.md)
+ * [Setup Pipeline Job] ()
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists

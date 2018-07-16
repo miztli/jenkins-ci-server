@@ -47,6 +47,8 @@ Assuming you got a successful version response when testing the connection, we c
 
  - For the Docker Image field enter: jenkins-slave:0.1
 
+ - For persistent data, add the necessary volumes, ex: `/home/jenkins:/home/`
+
  - For Remote Filing System Root enter /home/jenkins (this will be where the jenkins workspace goes in the container)
 
  - For Usage select only build jobs with the label expressions matching this node
