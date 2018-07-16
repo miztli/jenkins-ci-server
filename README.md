@@ -5,7 +5,7 @@ Create a continuous integration server with Jenkins, NGINX and Docker
 These instructions will help you to set up a continuous integration server using Jenkins on top of Docker fronted by an NGINX web proxy to build you CI-CD pipelines.
 
 ### Prerequisites
-The following software must be installed in your server or local computer
+The following software must be installed on your server or local computer
 
 ```
 Docker v18.04.0-ce
@@ -28,7 +28,7 @@ docker network ls
    - jenkins-master
    - nginx-server
 
-## Install complete environment with docker compose
+### Install complete environment with docker compose
 
  * Build images
 ```
@@ -56,7 +56,7 @@ docker volume ls
 docker-compose -p jenkins down
 ```
 
-## Manage environment with makefile
+### Manage environment with makefile
  * Build the environment
 ```
 make build
@@ -82,7 +82,7 @@ make clean-images
 make jenkins-log
 ```
 
-## Configure Jenkins
+### Configure Jenkins
 Click [here](jenkins-master/configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
 
 ### References
