@@ -7,56 +7,13 @@ These instructions will help you to set up a continuous integration server using
 ### Prerequisites
 The following software must be installed on your server or local computer
 
-```
-Docker v18.04.0-ce
-Docker compose 1.19.0
-```
-
-### Install (Standalone mode)
-
- * Create a bridge network so that containers can see each other.
-```
-docker network create --driver bridge jenkins-net
-```
-
- * Verify network waas created successfully
-```
-docker network ls
-```
-
- * Follow each README.md file inside the directories in the following order:
-   - jenkins-master
-   - nginx-server
-
-### Install complete environment with docker compose
-
- * Build images
-```
-docker-compose build
-```
-
- * Start containers
-```
-docker-compose -p jenkins up -d
-```
-
- * Verify deployed containers
-```
-docker-compose -p jenkins ps
-```
-
- * Feel free to verify what docker compose has created
-```
-docker network ls
-docker volume ls
-```
-
- * Stop the jenkis environment
-```
-docker-compose -p jenkins down
-```
+ * [Docker v18.04.0-ce](https://docs.docker.com/install/)
+ * [Docker compose 1.19.0](https://docs.docker.com/compose/install/)
+ * GNU Make 4.2.1 - Installation may exist in the default packages of your linux distribution, if not, installations may vary depending of the host O.S.
 
 ### Manage environment with makefile
+If you feel uncomfortable using make file, you can see [here](makefile) the specific commands to start the environment using docker-compose.
+
  * Build the environment
 ```
 make build
@@ -81,6 +38,8 @@ make clean-images
 ```
 make jenkins-log
 ```
+
+***_NOTE:_*** For intalling the components separately, you can use [docker-compose.yml](docker-compose.yml) file to see what each of the components need to start in a container.
 
 ### Post-installation configurations for a complete CI flow
  * [Setup Plugins](jenkins-pipeline/configure-plugins.md)
