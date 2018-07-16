@@ -3,7 +3,7 @@
 ### Bitbucket Configuration
  1. On your bitbucket project, select the ***Settings > WORKFLOW > Webhooks > Add webhook*** option.
  2. Type the _title_ name for this webhook.
- 3. Type the _URL_ of your jenkins installation suffixed by ***\/bitbucket-hook\/***, ex: ```https://jenkins.ciserver/bitbucket-hook/```
+ 3. Type the _URL_ of your jenkins installation suffixed by ***/bitbucket-hook/***, ex: ```https://jenkins.ciserver/bitbucket-hook/```
  4. Select status = _Active_.
  5. Select the option _Repository push_
 
