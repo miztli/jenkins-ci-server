@@ -42,11 +42,11 @@ make jenkins-log
 ***_NOTE:_*** For installing the components separately, you can use [docker-compose.yml](docker-compose.yml) file to see what each of the components need to start in a container.
 
 ### Post-installation configurations for a complete CI flow
- * [Setup Plugins](jenkins-pipeline/configure-plugins.md)
- * [Setup Jenkins](jenkins-master/configure-jenkins.md)
- * [Setup Bitbucket Webhook](jenkins-pipeline/configure-bitbucket-webhook.md)
- * [Setup Docker Agents](jenkins-master/configure-docker-agents.md)
- * [Setup Pipeline Job](jenkins-pipeline/pipeline-job.md)
+ * [Setup Plugins](configurations/configure-plugins.md)
+ * [Setup Jenkins](configurations/configure-jenkins.md)
+ * [Setup Bitbucket Webhook](configurations/configure-bitbucket-webhook.md)
+ * [Setup Docker Agents](configurations/configure-docker-agents.md)
+ * [Setup Pipeline Job](configrations/pipeline-job.md)
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
