@@ -5,8 +5,9 @@ This example will help you to start your first jenkins pipeline using minimum pl
 This example contains integration with a SCM, docker and Jenkins.
 
 ### Requirements
-The following plugins need to be available for the Pipeline project.
+The following plugins need to be available for the Pipeline project. Click [here](configure-plugins.md) for the instructions on configuring each plugin.
 
+ - JDK Plugin
  - Gradle Plugin (For gradle builds)
  - Blue Ocean Plugin ('Optional' for better UI traceability)
  - Pipeline Plugin (For jenkinsfile and job configuration)
