@@ -39,7 +39,7 @@ make clean-images
 make jenkins-log
 ```
 
-***_NOTE:_*** For intalling the components separately, you can use [docker-compose.yml](docker-compose.yml) file to see what each of the components need to start in a container.
+***_NOTE:_*** For installing the components separately, you can use [docker-compose.yml](docker-compose.yml) file to see what each of the components need to start in a container.
 
 ### Post-installation configurations for a complete CI flow
  * [Setup Plugins](jenkins-pipeline/configure-plugins.md)
