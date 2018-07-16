@@ -11,6 +11,10 @@ The following software must be installed on your server or local computer
  * [Docker compose 1.19.0](https://docs.docker.com/compose/install/)
  * GNU Make 4.2.1 - Installation may exist in the default packages of your linux distribution, if not, installations may vary depending of the host O.S.
 
+### Create volume for slave instances
+ Due to the nature of containers, a persistent data volume must be created for slave nodes, so that data could be persisted outside of slave containers.
+ 1. On jenkins host machine, type: `docker volume create jenkins_jenkins-slave-home`
+
 ### Manage environment with makefile
 If you feel uncomfortable using make file, you can see [here](makefile) the specific commands to start the environment using docker-compose.
 
