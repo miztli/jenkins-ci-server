@@ -82,12 +82,13 @@ make clean-images
 make jenkins-log
 ```
 
-### post installation steps
- * [Setup Plugins](jenkins-master/configure-jenkins.md)
+### Post-installation configurations for a complete CI flow
+ * [Setup Plugins](jenkins-pipeline/configure-plugins.md)
  * [Setup Jenkins](jenkins-master/configure-jenkins.md)
- * [Setup Bitbucket Webhook] ()
- * [Setup Docker Agents] (jenkins-master/configure-jenkins.md)
- * [Setup Pipeline Job] ()
+ * [Setup Bitbucket Webhook] (jenkins-pipeline/configure-bitbucket-webhook.md)
+ * [Setup Docker Agents] (jenkins-master/configure-docker-agents.md)
+ * [Setup Pipeline Job] (jenkins-pipeline/pipeline-job.md)
+
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
    - https://engineering.riotgames.com/news/docker-jenkins-data-persists
