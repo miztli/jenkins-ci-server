@@ -58,11 +58,7 @@ docker exec jenkins-master cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 ### Configure Jenkins
-Click [here](configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
-
-### Create a jenkins pipeline
-
- * Install jenkins Pipeline plugin from Manage Plugins
+Click [here](configurations/configure-jenkins.md) to follow the configuration steps for your new Jenkins instance
 
 ### References
    - https://engineering.riotgames.com/news/putting-jenkins-docker-container
