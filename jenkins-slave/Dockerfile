@@ -28,7 +28,9 @@ RUN yum makecache \
     java-1.8.0-openjdk-devel \
     docker-ce-18.04.0.ce-3.el7.centos \
 	  sudo \
-	  && yum clean all
+	  make \
+    gcc-c++ \
+    && yum clean all
 
 ARG user=jenkins
 ARG group=jenkins
