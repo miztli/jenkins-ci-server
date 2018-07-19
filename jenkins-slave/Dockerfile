@@ -30,6 +30,8 @@ RUN yum makecache \
 	  sudo \
 	  make \
     gcc-c++ \
+    bzip2 \
+    bzip2-libs \
     && yum clean all
 
 ARG user=jenkins
