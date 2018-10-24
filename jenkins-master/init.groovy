@@ -9,4 +9,4 @@ Thread.start {
       int port = env['JENKINS_SLAVE_AGENT_PORT'].toInteger()
       Jenkins.instance.setSlaveAgentPort(port)
       println "--> setting agent port for jnlp... done"
-
+}
