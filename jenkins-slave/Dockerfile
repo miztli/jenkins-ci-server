@@ -1,3 +1,4 @@
+### Image for building a groovy slave
 FROM centos:centos7
 LABEL maintainer="dark_coneja@hotmail.com"
 
