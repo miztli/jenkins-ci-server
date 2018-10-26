@@ -1,6 +1,6 @@
 build: #start all the environment
 	@docker-compose -p jenkins build
-run: #exclude jenkins-slave
+run: #exclude jenkins slaves
 	@docker-compose -p jenkins up -d nginx master proxy
 stop: #stop the environment
 	@docker-compose -p jenkins down

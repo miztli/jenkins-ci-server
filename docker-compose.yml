@@ -23,6 +23,11 @@ services:
     image: jenkins-slave:0.1
     volumes: 
       - jenkins-slave-home:/home/jenkins        
+  slave-groovy:
+    build: ./jenkins-slave-groovy
+    image: jenkins-slave-groovy:0.1
+    volumes: 
+      - jenkins-slave-home:/home/jenkins        
   proxy:
     build: ./docker-proxy
     image: docker-proxy:0.1
