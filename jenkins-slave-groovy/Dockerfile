@@ -4,15 +4,15 @@ FROM openjdk:8-jdk-alpine
 
 MAINTAINER Miztli Melgoza
 
-# Return to root user from groovy
-USER root
-
+# ------------------------------------------
 # Install latest version of git and openssh
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache git \
     openssh
+# ------------------------------------------
 
+# ------------------------------------------
 # Install groovy. 
 # Copied from: https://github.com/groovy/docker-groovy/blob/1b26ed9353728e24805cc5959b71d2661c6de5d1/jdk8-alpine/Dockerfile
 # Couldn't use directly groovy image because I needed to change grovy's user uid and group id, 
@@ -86,22 +86,41 @@ RUN set -o errexit -o nounset \
     && addgroup -S -g ${GROOVY_GROUP_ID} ${GROOVY_GROUP} \
     && adduser -D -S -G ${GROOVY_GROUP} -u ${GROOVY_USER_ID} -s /bin/ash ${GROOVY_USER} \
     && mkdir -p "${GROOVY_HOME_DIR}/.groovy/grapes" \
-    && chown -R groovy:groovy ${GROOVY_HOME_DIR} \
+    && chown -R ${GROOVY_USER}:${GROOVY_GROUP} ${GROOVY_HOME_DIR} \
     \
     && echo "Symlinking root .groovy to groovy .groovy" \
     && ln -s "${GROOVY_HOME_DIR}/.groovy" /root/.groovy
 
 # Create Grapes volume
-USER groovy
+# USER groovy
 VOLUME "${GROOVY_HOME_DIR}/.groovy/grapes"
-WORKDIR ${GROOVY_HOME_DIR}
+# WORKDIR ${GROOVY_HOME_DIR}
 
+# Test groovy instalation
 RUN set -o errexit -o nounset \
     && echo "Testing Groovy installation" \
     && groovy --version
 
-# Install docker
+## End groovy installation
+# ----------------------------------------------------
 
+# ----------------------------------------------------
+# Install docker CLI only (docker cli version must be same as jenkins master)
+ENV DOCKER_CLI_VERSION "18.06.1-ce"
+ENV DOWNLOAD_URL "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_CLI_VERSION}.tgz"
+
+RUN apk --update add curl \
+    && mkdir -p /tmp/download \
+    && curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
+    && mv /tmp/download/docker/docker /usr/local/bin/ \
+    && rm -rf /tmp/download \
+    && apk del curl \
+    && rm -rf /var/cache/apk/*
+# End docker cli installation
+# ----------------------------------------------------
+
+# ----------------------------------------------------
+# Configure jenkins workspace
 # Add jenkins group and user
 ENV JENKINS_USER jenkins
 ENV JENKINS_USER_UID 1000
@@ -111,18 +130,17 @@ ENV JENKINS_HOME "/home/${JENKINS_USER}"
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, ensure you use the same uid
-# RUN mkdir -p $JENKINS_HOME && \
-#     chown ${uid}:${gid} $JENKINS_HOME && \
-#     addgroup -g ${gid} ${group} && \
-#     adduser -h "$JENKINS_HOME" -u ${uid} -G ${group} -s /bin/sh -D ${user}
+RUN addgroup -S -g ${JENKINS_GROUP_ID} ${JENKINS_GROUP} \
+    && adduser -D -S -G ${JENKINS_GROUP} -u ${JENKINS_USER_UID} -s /bin/ash ${JENKINS_USER} \
+    && chown -R ${JENKINS_USER}:${JENKINS_GROUP} ${GROOVY_HOME_DIR}
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
-# VOLUME $JENKINS_HOME
+VOLUME $JENKINS_HOME
 
-# RUN addgroup -S jenkins && \
-#     adduser -S jenkins -G jenkins
+# Change to jenkins user
+USER ${JENKINS_USER}
+# End jenkins installation
+# ----------------------------------------------------
 
-# USER jenkins
-
-CMD [ "/bin/ash" ]
+CMD ["/bin/ash"]
