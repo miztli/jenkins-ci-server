@@ -105,6 +105,52 @@ RUN set -o errexit -o nounset \
 # ----------------------------------------------------
 
 # ----------------------------------------------------
+# Install gradle
+# Copied from: https://github.com/keeganwitt/docker-gradle/blob/1718fa65873e24d1e003dcd3828755e9fd39fa9d/jdk8-slim/Dockerfile
+CMD ["gradle"]
+
+ENV GRADLE_HOME /opt/gradle
+ENV GRADLE_USER gradle
+ENV GRADLE_USER_ID 1002
+ENV GRADLE_GROUP gradle
+ENV GRADLE_GROUP_ID 1002
+ENV GRADLE_VERSION 4.10.2
+
+ARG GRADLE_DOWNLOAD_SHA256=b49c6da1b2cb67a0caf6c7480630b51c70a11ca2016ff2f555eaeda863143a29
+RUN set -o errexit -o nounset \
+	&& echo "Downloading Gradle" \
+	&& wget -O gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+	\
+	&& echo "Checking download hash" \
+	&& echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum -c - \
+	\
+	&& echo "Installing Gradle" \
+	&& unzip gradle.zip \
+	&& rm gradle.zip \
+	&& mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
+	&& ln -s "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle \
+	\
+	&& echo "Adding gradle user and group" \
+	&& addgroup -S -g ${GRADLE_GROUP_ID} ${GRADLE_GROUP} \
+	&& adduser -D -S -G ${GRADLE_GROUP} -u ${GRADLE_USER_ID} -s /bin/ash ${GRADLE_USER} \
+	&& mkdir "${GRADLE_HOME}/.gradle" \
+	&& chown -R ${GRADLE_USER}:${GRADLE_GROUP} ${GRADLE_HOME} \
+	\
+	&& echo "Symlinking root Gradle cache to gradle Gradle cache" \
+	&& ln -s "${GRADLE_HOME}/.gradle" /root/.gradle
+
+# Create Gradle volume
+# USER gradle
+VOLUME "${GRADLE_HOME}/.gradle"
+# WORKDIR /home/gradle
+
+RUN set -o errexit -o nounset \
+	&& echo "Testing Gradle installation" \
+	&& gradle --version
+## End gradle installation
+# ----------------------------------------------------
+
+# ----------------------------------------------------
 # Install docker CLI only (docker cli version must be same as jenkins master)
 ENV DOCKER_CLI_VERSION "18.06.1-ce"
 ENV DOWNLOAD_URL "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_CLI_VERSION}.tgz"
