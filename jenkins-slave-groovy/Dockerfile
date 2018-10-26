@@ -14,7 +14,7 @@ RUN apk update && \
 
 # ------------------------------------------
 # Install groovy. 
-# Copied from: https://github.com/groovy/docker-groovy/blob/1b26ed9353728e24805cc5959b71d2661c6de5d1/jdk8-alpine/Dockerfile
+# Copied from: https://github.com/keeganwitt/docker-gradle/blob/1718fa65873e24d1e003dcd3828755e9fd39fa9d/jdk8-alpine/Dockerfile
 # Couldn't use directly groovy image because I needed to change grovy's user uid and group id, 
 # so that they do not interfere with jenkins
 CMD ["groovysh"]
