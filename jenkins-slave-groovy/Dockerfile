@@ -1,5 +1,5 @@
 ## Description: Jenkins slave image.
-## JAVA 8 + Alpine linux 3.8 + Groovy 2.5.3
+## JAVA 8 + Alpine linux 3.8 + Groovy 2.5.3 + Gradle 4.10.2
 FROM openjdk:8-jdk-alpine
 
 MAINTAINER Miztli Melgoza
