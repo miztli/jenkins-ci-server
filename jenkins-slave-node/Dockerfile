@@ -76,6 +76,14 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 ## End node installation
 # ----------------------------------------------------
 
+# ------------------------------------------
+# Install latest version of git and openssh
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache git \
+    openssh
+# ------------------------------------------
+
 # ----------------------------------------------------
 # Configure jenkins workspace
 # Add jenkins group and user
