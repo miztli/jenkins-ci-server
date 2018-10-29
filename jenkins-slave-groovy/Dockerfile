@@ -178,7 +178,7 @@ ENV JENKINS_HOME "/home/${JENKINS_USER}"
 # If you bind mount a volume from the host or a data container, ensure you use the same uid
 RUN addgroup -S -g ${JENKINS_GROUP_ID} ${JENKINS_GROUP} \
     && adduser -D -S -G ${JENKINS_GROUP} -u ${JENKINS_USER_UID} -s /bin/ash ${JENKINS_USER} \
-    && chown -R ${JENKINS_USER}:${JENKINS_GROUP} ${GROOVY_HOME_DIR}
+    && chown -R ${JENKINS_USER}:${JENKINS_GROUP} ${JENKINS_HOME}
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
