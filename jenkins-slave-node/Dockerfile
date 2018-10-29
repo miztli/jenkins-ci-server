@@ -1,4 +1,5 @@
-FROM alpine:3.8
+# FROM alpine:3.8
+FROM openjdk:8-jdk-alpine
 
 # ----------------------------------------------------
 # Install node
