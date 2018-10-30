@@ -22,8 +22,8 @@ RUN addgroup -g ${NODE_GROUP_ID} ${NODE_GROUP} \
         gnupg \
         libgcc \
         linux-headers \
-        make \
         python \
+    && apk add --update make \
   # gpg keys listed at https://github.com/nodejs/node#release-team
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -229,7 +229,8 @@ RUN addgroup -S -g ${JENKINS_GROUP_ID} ${JENKINS_GROUP} \
 VOLUME $JENKINS_HOME
 
 # Change to jenkins user
-USER ${JENKINS_USER}
+# USER ${JENKINS_USER}
+USER root
 # End jenkins installation
 # ----------------------------------------------------
 
