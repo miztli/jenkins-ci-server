@@ -78,17 +78,19 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 # ------------------------------------------
 # Install python
-# Copied from: https://github.com/docker-library/python/blob/bf1acb4f1caad419ff290d700044240b4e8cb0df/3.6/alpine3.8/Dockerfile
+# Copied from: https://github.com/docker-library/python/blob/ac49e0bb09aafe4100fe5662636c24fce7206008/2.7/alpine3.8/Dockerfile
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
+# https://github.com/docker-library/python/issues/147
+ENV PYTHONIOENCODING UTF-8
 
 # install ca-certificates so that HTTPS works consistently
 # other runtime dependencies for Python are installed later
 RUN apk add --no-cache ca-certificates
 
-ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
-ENV PYTHON_VERSION 3.6.7
+ENV GPG_KEY C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+ENV PYTHON_VERSION 2.7.15
 
 RUN set -ex \
 	&& apk add --no-cache --virtual .fetch-deps \
@@ -111,12 +113,10 @@ RUN set -ex \
 		bzip2-dev \
 		coreutils \
 		dpkg-dev dpkg \
-		expat-dev \
 		findutils \
 		gcc \
 		gdbm-dev \
 		libc-dev \
-		libffi-dev \
 		libnsl-dev \
 		libressl-dev \
 		libtirpc-dev \
@@ -129,7 +129,6 @@ RUN set -ex \
 		tcl-dev \
 		tk \
 		tk-dev \
-		xz-dev \
 		zlib-dev \
 # add build deps before removing fetch deps in case there's overlap
 	&& apk del .fetch-deps \
@@ -138,11 +137,8 @@ RUN set -ex \
 	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 	&& ./configure \
 		--build="$gnuArch" \
-		--enable-loadable-sqlite-extensions \
 		--enable-shared \
-		--with-system-expat \
-		--with-system-ffi \
-		--without-ensurepip \
+		--enable-unicode=ucs4 \
 	&& make -j "$(nproc)" \
 # set thread stack size to 1MB so we don't segfault before we hit sys.getrecursionlimit()
 # https://github.com/alpinelinux/aports/commit/2026e1259422d4e0cf92391ca2d3844356c649d0
@@ -164,14 +160,7 @@ RUN set -ex \
 		\) -exec rm -rf '{}' + \
 	&& rm -rf /usr/src/python \
 	\
-	&& python3 --version
-
-# make some useful symlinks that are expected to exist
-RUN cd /usr/local/bin \
-	&& ln -s idle3 idle \
-	&& ln -s pydoc3 pydoc \
-	&& ln -s python3 python \
-	&& ln -s python3-config python-config
+	&& python2 --version
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 18.1
