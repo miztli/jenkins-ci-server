@@ -150,6 +150,179 @@ RUN set -o errexit -o nounset \
 ## End gradle installation
 # ----------------------------------------------------
 
+# ------------------------------------------
+# Install python (for az-cli)
+# Copied from: https://github.com/docker-library/python/blob/ac49e0bb09aafe4100fe5662636c24fce7206008/2.7/alpine3.8/Dockerfile
+# http://bugs.python.org/issue19846
+# > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
+ENV LANG C.UTF-8
+# https://github.com/docker-library/python/issues/147
+ENV PYTHONIOENCODING UTF-8
+
+# install ca-certificates so that HTTPS works consistently
+# other runtime dependencies for Python are installed later
+RUN apk add --no-cache ca-certificates
+
+ENV GPG_KEY C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
+ENV PYTHON_VERSION 2.7.15
+
+RUN set -ex \
+	&& apk add --no-cache --virtual .fetch-deps \
+		gnupg \
+		tar \
+		xz \
+	\
+	&& wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
+	&& wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY" \
+	&& gpg --batch --verify python.tar.xz.asc python.tar.xz \
+	&& { command -v gpgconf > /dev/null && gpgconf --kill all || :; } \
+	&& rm -rf "$GNUPGHOME" python.tar.xz.asc \
+	&& mkdir -p /usr/src/python \
+	&& tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
+	&& rm python.tar.xz \
+	\
+	&& apk add --no-cache --virtual .build-deps  \
+		bzip2-dev \
+		coreutils \
+		dpkg-dev dpkg \
+		findutils \
+		gcc \
+		gdbm-dev \
+		libc-dev \
+		libnsl-dev \
+		libressl-dev \
+		libtirpc-dev \
+		linux-headers \
+		make \
+		ncurses-dev \
+		pax-utils \
+		readline-dev \
+		sqlite-dev \
+		tcl-dev \
+		tk \
+		tk-dev \
+		zlib-dev \
+# add build deps before removing fetch deps in case there's overlap
+	&& apk del .fetch-deps \
+	\
+	&& cd /usr/src/python \
+	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+	&& ./configure \
+		--build="$gnuArch" \
+		--enable-shared \
+		--enable-unicode=ucs4 \
+	&& make -j "$(nproc)" \
+# set thread stack size to 1MB so we don't segfault before we hit sys.getrecursionlimit()
+# https://github.com/alpinelinux/aports/commit/2026e1259422d4e0cf92391ca2d3844356c649d0
+		EXTRA_CFLAGS="-DTHREAD_STACK_SIZE=0x100000" \
+	&& make install \
+	\
+	&& find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
+		| tr ',' '\n' \
+		| sort -u \
+		| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+		| xargs -rt apk add --no-cache --virtual .python-rundeps \
+	&& apk del .build-deps \
+	\
+	&& find /usr/local -depth \
+		\( \
+			\( -type d -a \( -name test -o -name tests \) \) \
+			-o \
+			\( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+		\) -exec rm -rf '{}' + \
+	&& rm -rf /usr/src/python \
+	\
+	&& python2 --version
+
+# if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
+ENV PYTHON_PIP_VERSION 18.1
+
+RUN set -ex; \
+	\
+	wget -O get-pip.py 'https://bootstrap.pypa.io/get-pip.py'; \
+	\
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		"pip==$PYTHON_PIP_VERSION" \
+	; \
+	pip --version; \
+	\
+	find /usr/local -depth \
+		\( \
+			\( -type d -a \( -name test -o -name tests \) \) \
+			-o \
+			\( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+		\) -exec rm -rf '{}' +; \
+	rm -f get-pip.py
+# End python installation
+# ------------------------------------------
+
+# ----------------------------------------------------
+# Azure cli
+ARG CLI_VERSION
+
+# Metadata as defined at http://label-schema.org
+ARG BUILD_DATE
+
+ENV JP_VERSION="0.1.3"
+
+LABEL maintainer="Microsoft" \
+      org.label-schema.schema-version="1.0" \
+      org.label-schema.vendor="Microsoft" \
+      org.label-schema.name="Azure CLI" \
+      org.label-schema.version=$CLI_VERSION \
+      org.label-schema.license="MIT" \
+      org.label-schema.description="The Azure CLI is used for all Resource Manager deployments in Azure." \
+      org.label-schema.url="https://docs.microsoft.com/en-us/cli/azure/overview" \
+      org.label-schema.usage="https://docs.microsoft.com/en-us/cli/azure/install-az-cli2#docker" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/Azure/azure-cli.git" \
+      org.label-schema.docker.cmd="docker run -v \${HOME}/.azure:/root/.azure -it microsoft/azure-cli:$CLI_VERSION"
+
+WORKDIR azure-cli
+COPY ./azure-cli /azure-cli
+
+# bash gcc make openssl-dev libffi-dev musl-dev - dependencies required for CLI
+# openssh - included for ssh-keygen
+# ca-certificates
+
+# curl - required for installing jp
+# jq - we include jq as a useful tool
+# pip wheel - required for CLI packaging
+# jmespath-terminal - we include jpterm as a useful tool
+# 1. Build packages and store in tmp dir
+# 2. Install the cli and the other command modules that weren't included
+# 3. Temporary fix - install azure-nspkg to remove import of pkg_resources in azure/__init__.py (to improve performance)
+RUN apk add --no-cache bash openssh ca-certificates jq curl openssl git \
+ && apk add --no-cache --virtual .build-deps gcc make openssl-dev libffi-dev musl-dev \
+ && update-ca-certificates \
+ && curl https://github.com/jmespath/jp/releases/download/${JP_VERSION}/jp-linux-amd64 -o /usr/local/bin/jp \
+ && chmod +x /usr/local/bin/jp \
+ && pip install --no-cache-dir --upgrade jmespath-terminal \
+ && /bin/bash -c 'TMP_PKG_DIR=$(mktemp -d); \
+    for d in src/azure-cli src/azure-cli-telemetry src/azure-cli-core src/azure-cli-nspkg src/azure-cli-command_modules-nspkg src/command_modules/azure-cli-*/; \
+    do cd $d; echo $d; python setup.py bdist_wheel -d $TMP_PKG_DIR; cd -; \
+    done; \
+    [ -d privates ] && cp privates/*.whl $TMP_PKG_DIR; \
+    all_modules=`find $TMP_PKG_DIR -name "*.whl"`; \
+    pip install --no-cache-dir $all_modules; \
+    pip install --no-cache-dir --force-reinstall --upgrade azure-nspkg azure-mgmt-nspkg;' \
+ && cat /azure-cli/az.completion > ~/.bashrc \
+ && runDeps="$( \
+    scanelf --needed --nobanner --recursive /usr/local \
+        | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+        | sort -u \
+        | xargs -r apk info --installed \
+        | sort -u \
+    )" \
+ && apk add --virtual .rundeps $runDeps \
+ && apk del .build-deps 
+# End azure cli installation
+# ----------------------------------------------------
+
 # ----------------------------------------------------
 # Install docker CLI only (docker cli version must be same as jenkins master)
 ENV DOCKER_CLI_VERSION "18.06.1-ce"
@@ -204,7 +377,8 @@ RUN addgroup -S -g ${JENKINS_GROUP_ID} ${JENKINS_GROUP} \
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
-VOLUME $JENKINS_HOME
+WORKDIR ${JENKINS_HOME}
+VOLUME ${JENKINS_HOME}
 
 # Change to jenkins user
 USER ${JENKINS_USER}
