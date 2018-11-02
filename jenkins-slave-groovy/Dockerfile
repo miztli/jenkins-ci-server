@@ -165,6 +165,28 @@ RUN apk --update add curl \
 # End docker cli installation
 # ----------------------------------------------------
 
+# Install kubectl
+# Note: Latest version may be found on:
+# https://aur.archlinux.org/packages/kubectl-bin/
+ENV KUBECTL_VERSION "https://storage.googleapis.com/kubernetes-release/release/v1.9.6/bin/linux/amd64/kubectl"
+ENV KUBECTL_HOME "/config"
+ENV KUBECTL_USER "kubectl"
+ENV KUBECTL_USER_ID 2342
+
+ADD ${KUBECTL_VERSION} /usr/local/bin/kubectl
+
+RUN set -x && \
+    apk add --no-cache curl ca-certificates && \
+    chmod +x /usr/local/bin/kubectl && \
+    \
+    # Create non-root user (with a randomly chosen UID/GUI).
+    adduser ${KUBECTL_USER} -Du ${KUBECTL_USER_ID} -h ${KUBECTL_HOME} && \
+    \
+    # Basic check it works.
+    kubectl version --client
+# End docker cli installation
+# ----------------------------------------------------
+
 # ----------------------------------------------------
 # Configure jenkins workspace
 # Add jenkins group and user
